@@ -53,9 +53,12 @@ class _HomePageState extends State<HomePage> {
                           enderecoModel = endereco;
                         });
                       } catch (e) {
+                        setState(() {
+                          enderecoModel = null;
+                        });
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text("Erro ao buscar Endereço ${e}")),
+                              content: Text("Erro ao buscar Endereço $e")),
                         );
                       }
                     }
