@@ -13,6 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final CepRepository cepRepository = CepRepositoryImpl();
   EnderecoModel? enderecoModel;
+  bool loading = false;
 
   final formKey = GlobalKey<FormState>();
   final cepEC = TextEditingController();
@@ -48,23 +49,30 @@ class _HomePageState extends State<HomePage> {
                     final valid = formKey.currentState?.validate() ?? false;
                     if (valid) {
                       try {
+                        setState(() {
+                          loading = true;
+                        });
                         final endereco = await cepRepository.getCep(cepEC.text);
                         setState(() {
+                          loading = false;
                           enderecoModel = endereco;
                         });
                       } catch (e) {
                         setState(() {
+                          loading = false;
                           enderecoModel = null;
                         });
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text("Erro ao buscar Endereço $e")),
+                          SnackBar(content: Text("Erro ao buscar Endereço $e")),
                         );
                       }
                     }
                   },
                   child: const Text("Buscar")),
-              Visibility(
+                Visibility(
+                  visible: loading,
+                  child: const CircularProgressIndicator()),
+                Visibility(
                   visible: enderecoModel != null,
                   child: Text(
                       "${enderecoModel?.logradouro} ${enderecoModel?.complemento} ${enderecoModel?.cep}")),
