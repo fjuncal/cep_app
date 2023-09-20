@@ -53,16 +53,16 @@ class _HomePageState extends State<HomePage> {
                           enderecoModel = endereco;
                         });
                       } catch (e) {
-                        // ignore: use_build_context_synchronously
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text("Erro ao buscar Endereço")),
+                           SnackBar(
+                              content: Text("Erro ao buscar Endereço ${e}")),
                         );
                       }
                     }
                   },
                   child: const Text("Buscar")),
-              Text("Logradouro complemento cep"),
+              Text(
+                  "${enderecoModel?.logradouro} ${enderecoModel?.complemento} ${enderecoModel?.cep}"),
             ],
           ),
         ),

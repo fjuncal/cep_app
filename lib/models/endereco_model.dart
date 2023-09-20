@@ -21,8 +21,8 @@ class EnderecoModel {
   factory EnderecoModel.fromMap(Map<String, dynamic> map) {
     return EnderecoModel(
       cep: map['cep'] as String,
-      logradouro: ['logradouro'] as String,
-      complemento: ['complemento'] as String,
+      logradouro: map['logradouro'] as String,
+      complemento: map['complemento'] as String,
     );
   }
 
