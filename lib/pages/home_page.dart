@@ -54,15 +54,17 @@ class _HomePageState extends State<HomePage> {
                         });
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                           SnackBar(
+                          SnackBar(
                               content: Text("Erro ao buscar Endereço ${e}")),
                         );
                       }
                     }
                   },
                   child: const Text("Buscar")),
-              Text(
-                  "${enderecoModel?.logradouro} ${enderecoModel?.complemento} ${enderecoModel?.cep}"),
+              Visibility(
+                  visible: enderecoModel != null,
+                  child: Text(
+                      "${enderecoModel?.logradouro} ${enderecoModel?.complemento} ${enderecoModel?.cep}")),
             ],
           ),
         ),
